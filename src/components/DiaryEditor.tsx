@@ -43,13 +43,17 @@ const ButtonWrapper = styled.div`
   }
 `;
 
+const handleChange = () => {
+  alert('제출 완료');
+};
+
 const DiaryEditor = () => {
   return (
     <Wrapper>
       <Div>
         제목 :
         <br />
-        <Title></Title>
+        <Title onChange={() => {}}></Title>
       </Div>
       <Div>
         내용 :
@@ -58,7 +62,7 @@ const DiaryEditor = () => {
       </Div>
       <ButtonWrapper>
         <Link to={'/'}>
-          <Button onClick={() => {}} buttonType={'save'}>
+          <Button onClick={handleChange} buttonType={'save'}>
             {'저장'}
           </Button>
         </Link>

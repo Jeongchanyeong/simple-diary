@@ -2,7 +2,7 @@ import React, { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  buttonType?: 'delete' | 'edit' | 'add' | 'save';
+  buttonType?: 'delete' | 'edit' | 'add' | 'save' | 'cancle';
 }
 
 const ButtonStyle = (props: ButtonProps) => {
@@ -24,6 +24,10 @@ const ButtonStyle = (props: ButtonProps) => {
       return `
           background-color: #72fa3d;
         `;
+    case 'cancle':
+      return `
+          background-color: #ffa673;
+        `;
     default:
       return '';
   }
@@ -31,7 +35,6 @@ const ButtonStyle = (props: ButtonProps) => {
 
 const MyButton = styled.button<ButtonProps>`
   padding: 12px 24px;
-  color: #fff;
   border: none;
   border-radius: 10px;
   cursor: pointer;
