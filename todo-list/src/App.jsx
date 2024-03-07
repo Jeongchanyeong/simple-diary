@@ -20,7 +20,7 @@ import List from './components/List';
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const idRef = useRef(3);
+  const idRef = useRef(0);
 
   const onCreate = (content) => {
     // 담고있어야 할 정보
@@ -42,11 +42,20 @@ function App() {
     );
   };
 
+  const onDelete = (targetId) => {
+    // 내가 겨냥한 id를 제외한 것들만 꺼내서 필터링 할게
+    setTodos(
+      todos.filter((todo) => {
+        return todo.id !== targetId;
+      })
+    );
+  };
+
   return (
     <div className="App">
       <Header />
       <Editor onCreate={onCreate} />
-      <List onUpdate={onUpdate} todos={todos} />
+      <List onDelete={onDelete} onUpdate={onUpdate} todos={todos} />
     </div>
   );
 }
