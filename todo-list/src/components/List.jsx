@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TodoItem from './TodoItem';
 import './List.css';
 
-const List = ({ todos }) => {
+const List = ({ todos, onUpdate }) => {
   const [search, setSearch] = useState('');
 
   const onChageSearch = (e) => {
@@ -33,7 +33,7 @@ const List = ({ todos }) => {
 
       <div className="todos_wrapper">
         {filteredTodos.map((todo) => (
-          <TodoItem key={todo.id} {...todo} />
+          <TodoItem key={todo.id} {...todo} onUpdate={onUpdate} />
         ))}
       </div>
     </div>

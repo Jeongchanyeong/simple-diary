@@ -33,11 +33,20 @@ function App() {
     setTodos([newTodo, ...todos]);
   };
 
+  const onUpdate = (targetId) => {
+    // todos배열에서 내가 겨냥한 id와 targetId가 일치하는지 확인하고 일치하다면 내가 바꾸고 싶은 부분 수정
+    setTodos(
+      todos.map((todo) =>
+        todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo
+      )
+    );
+  };
+
   return (
     <div className="App">
       <Header />
       <Editor onCreate={onCreate} />
-      <List todos={todos} />
+      <List onUpdate={onUpdate} todos={todos} />
     </div>
   );
 }
