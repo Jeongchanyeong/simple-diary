@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import TodoItem from './TodoItem';
 import './List.css';
 
@@ -22,9 +22,27 @@ const List = ({ todos, onUpdate, onDelete }) => {
 
   const filteredTodos = onSearchFilter();
 
+  const { currentTodo, doneTodo, notDoneTodo } = useMemo(() => {
+    const currentTodo = todos.length;
+    const doneTodo = todos.filter((todo) => todo.isDone).length;
+    const notDoneTodo = currentTodo - doneTodo;
+
+    return {
+      currentTodo,
+      doneTodo,
+      notDoneTodo,
+    };
+  }, [todos]);
+
   return (
     <div className="List">
       <h4>Todo List</h4>
+
+      <div>
+        <div>total: {currentTodo}</div>
+        <div>완료한 Todo: {doneTodo}</div>
+        <div>미완료한 Todo: {notDoneTodo}</div>
+      </div>
       <input
         value={search}
         onChange={onChageSearch}
