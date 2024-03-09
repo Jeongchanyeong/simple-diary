@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useRef, useReducer, useCallback } from 'react';
+import { useRef, useReducer, useCallback, createContext, useMemo } from 'react';
 import Header from './components/Header';
 import Editor from './components/Editior';
 import List from './components/List';
@@ -19,9 +19,11 @@ const reducer = (state, action) => {
   }
 };
 
+export const TodoStateContext = createContext();
+export const TodoDispatchContext = createContext();
+
 function App() {
   const [todos, dispatch] = useReducer(reducer, []);
-  // const [todos, setTodos] = useState([]);
 
   const idRef = useRef(0);
 
@@ -51,11 +53,19 @@ function App() {
     });
   }, []);
 
+  const memoiziedDispatch = useMemo(() => {
+    return { onCreate, onDelete, onUpdate };
+  }, []);
+
   return (
     <div className="App">
       <Header />
-      <Editor onCreate={onCreate} />
-      <List onDelete={onDelete} onUpdate={onUpdate} todos={todos} />
+      <TodoStateContext.Provider value={todos}>
+        <TodoDispatchContext.Provider value={memoiziedDispatch}>
+          <Editor />
+          <List />
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
     </div>
   );
 }
